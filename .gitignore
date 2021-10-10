@@ -1,0 +1,11 @@
+## BiDi Ignore File ##
+
+API/__pycache__/
+API/image/
+API/pretrained/
+API/config.py
+
+API/starganv2/core/__pycache__/
+
+# dotenv environment variables file
+.env

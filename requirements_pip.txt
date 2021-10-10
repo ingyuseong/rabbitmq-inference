@@ -1,0 +1,11 @@
+boto3==1.17.111
+requests==2.26.0
+opencv-python==4.5.3.56
+ffmpeg-python==0.2.0
+scikit-image==0.18.2
+tqdm==4.61.2
+munch==2.5.0
+pillow==8.3.0
+scipy==1.7.0
+pika==1.2.0
+python-dotenv==0.19.0
