@@ -1,4 +1,7 @@
 ## BiDi Ignore File ##
+__MACOSX/
+__pycache__/
+/**/.DS_Store
 
 API/__pycache__/
 API/image/
