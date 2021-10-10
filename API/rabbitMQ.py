@@ -126,12 +126,14 @@ class ExampleConsumer(object):
         # Process Task
         user_id = data['id']
         gender = data['gender']
+        length = data['length']
         img_src = data['img_src']
         
         print('Start inferencing')
         status = 'success'
+        result_data = []
         try:
-            starGAN_inference(user_id, gender, img_src)
+            result_data = starGAN_inference(user_id, gender, length, img_src)
             print('Successfully Complete inferencing')
         except Exception as e:
             status = 'error'
@@ -139,7 +141,7 @@ class ExampleConsumer(object):
             print('Failed to inference')
         finally:
             # Publish result to RESQUEUE
-            result = {'id': data['requestId'], 'status': status}
+            result = {'id': user_id, 'status': status, 'data': result_data}
             self.publish_to_channel(result)
 
             self.acknowledge_message(basic_deliver.delivery_tag)

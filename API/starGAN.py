@@ -54,7 +54,7 @@ def starGAN_inference(user_id, gender, length, img_src):
     source_dir = "image/2domain/input"
     reference_dir = "image/2domain/ref"
     # S3 Upload Path
-    result_dir = "viral/result/{}".format(user_id)
+    result_dir = "web/result/{}".format(user_id)
 
     assert len(subdirs(source_dir)) == args.num_domains
     assert len(subdirs(reference_dir)) == args.num_domains
