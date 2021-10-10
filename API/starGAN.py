@@ -45,7 +45,6 @@ def starGAN_inference(user_id, gender, length, img_src):
     args = parser.parse_args()
     
     # align image
-    out_dir = "image/try/{}/input".format(try_id) # to S3
     align_face(args, gender, img_src)
 
     cudnn.benchmark = True
@@ -54,8 +53,8 @@ def starGAN_inference(user_id, gender, length, img_src):
 
     source_dir = "image/2domain/input"
     reference_dir = "image/2domain/ref"
-    # result_dir = "image/try/{}/result".format(try_id) # to S3
-    result_dir = "viral/result/{}".format(user_id) # to S3
+    # S3 Upload Path
+    result_dir = "viral/result/{}".format(user_id)
 
     assert len(subdirs(source_dir)) == args.num_domains
     assert len(subdirs(reference_dir)) == args.num_domains
@@ -72,8 +71,7 @@ def starGAN_inference(user_id, gender, length, img_src):
                                     num_workers=1))
     img_list = solver.sample(loaders, result_dir)
     
-    os.remove("image/2domain/input/female/input.png")
-    os.remove("image/2domain/input/male/input.png")
+    os.remove("image/2domain/input/{}/input.png".format(gender))
 
     return img_list
     

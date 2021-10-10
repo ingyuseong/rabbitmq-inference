@@ -430,7 +430,7 @@ def align_face(args, gender, img_src):
     
     buff = io.BytesIO()
     image.save(buff, format='png')
-    image.save('./image/2domain/input/{}/input.png'.format(gender))
+    image.save('image/2domain/input/{}/input.png'.format(gender))
 
 # ========================== #
 #   Mask related functions   #
