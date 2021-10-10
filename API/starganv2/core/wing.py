@@ -406,21 +406,12 @@ def pad_mirror(img, landmarks):
     landmarks += np.array([W//4, H//4])
     return img, landmarks
 
-def align_face(args, out_dir, gender, image_bytes):
+def align_face(args, gender, img_src):
     import io
+    import requests
     from torchvision import transforms
     from PIL import Image
     from starganv2.core.utils import load_image
-
-    import boto3
-    import config
-
-    s3_client = boto3.client(
-        's3',
-        aws_access_key_id = config.S3_CONFIG['aws_access_key_id'],
-        aws_secret_access_key = config.S3_CONFIG['aws_secret_access_key'],
-        region_name = config.S3_CONFIG['region_name']
-    )
 
     aligner = FaceAligner(args.wing_path, args.lm_path, args.img_size)
     transform = transforms.Compose([
@@ -430,7 +421,7 @@ def align_face(args, out_dir, gender, image_bytes):
                              std=[0.5, 0.5, 0.5]),
     ])
 
-    image = Image.open(io.BytesIO(image_bytes)).convert('RGB')
+    image = Image.open(io.BytesIO(requests.get(img_src).content)).convert('RGB')
     x = transform(image).unsqueeze(0)
     x_aligned = aligner.align(x)
 
@@ -439,16 +430,8 @@ def align_face(args, out_dir, gender, image_bytes):
     
     buff = io.BytesIO()
     image.save(buff, format='png')
-    image.save('./image/2domain/input/female/input.png')
-    image.save('./image/2domain/input/male/input.png')
+    image.save('./image/2domain/input/{}/input.png'.format(gender))
 
-    s3_client.put_object(
-        Body=buff.getvalue(), 
-        Bucket=config.S3_CONFIG['bucket'],
-        Key="{}/align_image.png".format(out_dir), 
-        ACL='public-read',
-        ContentType='image/jpeg'
-    )
 # ========================== #
 #   Mask related functions   #
 # ========================== #

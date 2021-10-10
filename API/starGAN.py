@@ -16,7 +16,7 @@ def subdirs(dname):
     return [d for d in os.listdir(dname)
             if os.path.isdir(os.path.join(dname, d))]
 
-def starGAN_inference(try_id, gender, length, image_bytes):
+def starGAN_inference(user_id, gender, length, img_src):
     parser = argparse.ArgumentParser()
     # model arguments
     parser.add_argument('--img_size', type=int, default=256, help='Image resolution')
@@ -46,7 +46,7 @@ def starGAN_inference(try_id, gender, length, image_bytes):
     
     # align image
     out_dir = "image/try/{}/input".format(try_id) # to S3
-    align_face(args, out_dir, length, image_bytes)
+    align_face(args, gender, img_src)
 
     cudnn.benchmark = True
     torch.manual_seed(args.seed)
@@ -54,7 +54,8 @@ def starGAN_inference(try_id, gender, length, image_bytes):
 
     source_dir = "image/2domain/input"
     reference_dir = "image/2domain/ref"
-    result_dir = "image/try/{}/result".format(try_id) # to S3
+    # result_dir = "image/try/{}/result".format(try_id) # to S3
+    result_dir = "viral/result/{}".format(user_id) # to S3
 
     assert len(subdirs(source_dir)) == args.num_domains
     assert len(subdirs(reference_dir)) == args.num_domains
