@@ -127,13 +127,15 @@ class ExampleConsumer(object):
         user_id = data['id']
         gender = data['gender']
         length = data['length']
+        bang = data['bang']
+        type = data['type']
         img_src = data['img_src']
         
         print('Start inferencing')
         status = 'success'
         result_data = []
         try:
-            result_data = starGAN_inference(user_id, gender, length, img_src)
+            result_data = starGAN_inference(user_id, gender, length, bang, type, img_src)
             print('Successfully Complete inferencing')
         except Exception as e:
             status = 'error'

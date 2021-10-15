@@ -16,7 +16,7 @@ def subdirs(dname):
     return [d for d in os.listdir(dname)
             if os.path.isdir(os.path.join(dname, d))]
 
-def starGAN_inference(user_id, gender, length, img_src):
+def starGAN_inference(user_id, gender, length, bang, type, img_src):
     parser = argparse.ArgumentParser()
     # model arguments
     parser.add_argument('--img_size', type=int, default=256, help='Image resolution')
@@ -52,7 +52,7 @@ def starGAN_inference(user_id, gender, length, img_src):
     solver = Solver(args)
 
     source_dir = "image/2domain/input"
-    reference_dir = "image/2domain/ref"
+    reference_dir = "image/2domain/ref_" + type
     # S3 Upload Path
     result_dir = "web/result/{}".format(user_id)
 
