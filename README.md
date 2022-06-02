@@ -5,7 +5,7 @@ The abstract operation of this code is as follows:
 1. Subscribe a request message from the API Server (request queue)
     * In this example, the API Server is implemented in `node.js`
 3. StarGAN v2 Inference: Generate 8 images and upload them to AWS S3
-    * The base code was derived from [StarGAN v2](https://github.com/clovaai/stargan-v2)
+    * This code is based on [StarGAN v2](https://github.com/clovaai/stargan-v2)
 4. Publish a result message to the subscriber on the API Server (result queue)
 
 ## Requirements
