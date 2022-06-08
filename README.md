@@ -1,5 +1,5 @@
 # RabbitMQ Inference
-A repo for implementing a simple message queue based server architecture to asynchronously handle resource-intensive tasks(e.g. ML inference). For detailed information about RabbitMQ, please check this article: [Handling resource-intensive tasks with work queues in RabbitMQ](https://www.cloudamqp.com/blog/work-queues-in-rabbitmq-for-resource-intensive-tasks.html).
+A repo for implementing a simple message queue based server architecture to asynchronously handle resource-intensive tasks(e.g., ML inference). For detailed information about RabbitMQ, please check this article: [Handling resource-intensive tasks with work queues in RabbitMQ](https://www.cloudamqp.com/blog/work-queues-in-rabbitmq-for-resource-intensive-tasks.html).
 
 The abstract operation of this code is as follows:
 1. Subscribe a request message from the API Server (request queue)
